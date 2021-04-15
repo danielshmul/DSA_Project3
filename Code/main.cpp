@@ -15,16 +15,19 @@ int main()
     ifstream ifs;
     ifs.open("../odom.csv");
 
-    ofstream ofs;
-    ofs.open("backend_out.txt");
+    ifstream input;
+    input.open("frontend_in.txt");
 
-    string operation;
-    cin >> operation;
+    ofstream output;
+    output.open("backend_out.txt");
 
     // may want to be bigger depending on max time?
     // make a destructor?
     map<int, Odom*> o_map;
     unordered_map<int, Odom*> u_map;
+
+    string operation;
+    cin >> operation;
 
     while(operation != "stop")
     {
@@ -46,9 +49,10 @@ int main()
             auto o_map_stop = chrono::system_clock::now();
             int o_map_duration = chrono::duration_cast<chrono::milliseconds>(o_map_stop - o_map_start).count();
 
-            ofs << "o_map load dur," << o_map_duration << endl;
+            output << "o_map load dur," << o_map_duration << endl;
 
             ifs.seekg(0, ios::beg);
+            t = 0;
 
             auto u_map_start = chrono::system_clock::now();
             while(getline(ifs, lineFromFile))
@@ -61,15 +65,15 @@ int main()
             auto u_map_stop = chrono::system_clock::now();
             int u_map_duration = chrono::duration_cast<chrono::milliseconds>(u_map_stop - u_map_start).count();
 
-            ofs << "u_map load dur," << u_map_duration << endl;
+            output << "u_map load dur," << u_map_duration << endl;
+            // output time range
+            output << "t range,1," << t << endl;
         }
 
         cin >> operation;
     }
     
-
-
-    // while()
+    
 
 
     return 0;

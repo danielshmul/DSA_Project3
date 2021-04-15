@@ -27,7 +27,7 @@ int main()
     unordered_map<int, Odom*> u_map;
 
     string operation;
-    cin >> operation;
+    input >> operation;
 
     while(operation != "stop")
     {
@@ -68,9 +68,39 @@ int main()
             output << "u_map load dur," << u_map_duration << endl;
             // output time range
             output << "t range,1," << t << endl;
-        }
+            }
+        
 
-        cin >> operation;
+        // Operation: Return velocity values at passed time
+        // Inputs: operation=vel, direction, time
+        // Output: linear and angular velocity data for point of time
+        // else if(operation == "vel") // vel at time t
+        // {            
+        //     int time;
+        //     input >> time;
+
+        //     Odom* temp; // will contain value from maps
+
+        //     // access Odom class from o_map
+        //     auto o_map_start = chrono::system_clock::now();
+        //     temp = o_map[time];
+        //     auto o_map_stop = chrono::system_clock::now();
+        //     int o_map_duration = chrono::duration_cast<chrono::milliseconds>(o_map_stop - o_map_start).count();
+            
+        //     // first outputs class data, then outputs duration of operation
+        //     output << temp->lvx() << " " << temp->lvy() << " " << temp->lvz() << " " << temp->avx() << " " << temp->avy() << " " << temp->avz() << endl; 
+
+        //     // access Odom class from u_map
+        //     auto u_map_start = chrono::system_clock::now();
+        //     temp = u_map[time];
+        //     auto u_map_stop = chrono::system_clock::now();
+        //     int u_map_duration = chrono::duration_cast<chrono::milliseconds>(u_map_stop - u_map_start).count();
+
+        //     // first outputs class data, then outputs duration of operation
+
+        // }
+
+        input >> operation;
     }
     
     

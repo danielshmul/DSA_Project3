@@ -7,10 +7,10 @@ class Odom
     double avx, avy, avz;
 
 public:
-    Odom(double px, double py, double pz, 
-        double lvx, double lvy, double lvz, 
-        double avx, double avy, double avz) :
-    px(px), py(py), pz(pz), lvx(lvx), lvy(lvy), lvz(lvz), avx(avx), avy(avy), avz(avz) {}
+    Odom(double px_, double py_, double pz_, 
+        double lvx_, double lvy_, double lvz_, 
+        double avx_, double avy_, double avz_) :
+    px(px_), py(py_), pz(pz_), lvx(lvx_), lvy(lvy_), lvz(lvz_), avx(avx_), avy(avy_), avz(avz_) {}
     
     double px() const {return px;}
     double py() const {return py;}

@@ -1,3 +1,5 @@
+#pragma once
+
 #include <iostream>
 #include <string>
 #include <vector>
@@ -18,10 +20,10 @@ public:
     Node* left;
     Node* right;
     Node() : time(0), name(""), balance(0), left(nullptr), right(nullptr) {}
-    Node(string name, int time) : 
-    name(name), time(time), balance(0), left(nullptr), right(nullptr) {}
-    Node(string name, int time, int balance, Node* left, Node* right) : 
-    name(name), time(time), balance(balance), left(left), right(right) {}
+    Node(Odom* data, int time) : 
+    data(data), time(time), balance(0), left(nullptr), right(nullptr) {}
+    Node(Odom* data, int time, int balance, Node* left, Node* right) : 
+    data(data), time(time), balance(balance), left(left), right(right) {}
 };
 
 class AvlTree{
@@ -35,7 +37,7 @@ public:
     bool insert(int, Odom*);
     Node* insert(Node*, string, int);
     bool isValtime(string, string);
-    votime updateBalance(Node*);
+    void updateBalance(Node*);
     int calculateBalance(Node*);
     int getHeight(Node*);
     Node* balanceTree(Node*);
@@ -47,10 +49,10 @@ public:
 
     bool remove(int);
     Node* remove(Node*, int);
-    votime inorderSuccessors(vector<Node*>&, Node*);
+    void inorderSuccessors(vector<Node*>&, Node*);
 
-    vector<int> search(string);
-    votime search(Node*, vector<int>&, string);
+    vector<int> search(int);
+    void search(Node*, vector<int>&, int);
     string search(int);
     Node* search(Node*, int);
 
@@ -58,10 +60,10 @@ public:
     string traverseInorder(Node* node);
     string traversePostorder(Node* node);
 
-    int countLevels();
+    // int countLevels();
 
-    bool removeInorder(int);
-    votime inorderVector(vector<Node*>&, Node*);
+    // bool removeInorder(int);
+    // void inorderVector(vector<Node*>&, Node*);
 };
 
 // Insert node containing name and time (and maybe more) into tree
@@ -110,7 +112,7 @@ Node* AvlTree::insert(Node* root, Odom* data, int time)
 // }
 
 // Update balance for search path
-votime AvlTree::updateBalance(Node* node)
+void AvlTree::updateBalance(Node* node)
 {
     if (!node) return;
     updateBalance(node->left);
@@ -261,7 +263,7 @@ Node* AvlTree::remove(Node* root, int time)
 }
 
 // Returns all inorder successors for remove operation
-votime AvlTree::inorderSuccessors(vector<Node*>& nodes, Node* node)
+void AvlTree::inorderSuccessors(vector<Node*>& nodes, Node* node)
 {
     if (!node) return;
     inorderSuccessors(nodes, node->left);
@@ -269,24 +271,24 @@ votime AvlTree::inorderSuccessors(vector<Node*>& nodes, Node* node)
 }
 
 
-// Search for student by name
-// Return vector of times, size = 0 if not found
-vector<int> AvlTree::search(string name)
-{
-    vector<int> times;
-    search(root, times, name);
-    return times;
-}
+// // Search for student by name
+// // Return vector of times, size = 0 if not found
+// vector<int> AvlTree::search(string name)
+// {
+//     vector<int> times;
+//     search(root, times, name);
+//     return times;
+// }
 
-// Search NAME overload for preorder recursive functionality 
-votime AvlTree::search(Node* root, vector<int>& times, string name)
-{
-    if (!root) return;
-    if (root->name == name) 
-        times.push_back(root->time);
-    search(root->left, times, name);
-    search(root->right, times, name);
-}
+// // Search NAME overload for preorder recursive functionality 
+// void AvlTree::search(Node* root, vector<int>& times, string name)
+// {
+//     if (!root) return;
+//     if (root->name == name) 
+//         times.push_back(root->time);
+//     search(root->left, times, name);
+//     search(root->right, times, name);
+// }
 
 // Search for student by time
 // Return name if found, or "unsuccessful"
@@ -332,10 +334,10 @@ string AvlTree::traversePostorder(Node* node)
 }
 
 
-// Return number of levels in current AVL tree
-int AvlTree::countLevels()
-{
-    return getHeight(root);
+// // Return number of levels in current AVL tree
+// int AvlTree::countLevels()
+// {
+//     return getHeight(root);
 }
 
 
@@ -350,7 +352,7 @@ bool AvlTree::removeInorder(int n)
 }
 
 // Returns inorder vector of nodes
-votime AvlTree::inorderVector(vector<Node*>& nodes, Node* root)
+void AvlTree::inorderVector(vector<Node*>& nodes, Node* root)
 {
     if (!root) return;
     inorderVector(nodes, root->left);

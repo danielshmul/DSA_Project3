@@ -3,12 +3,11 @@
 #include <stdlib.h>
 #include <time.h>
 #include <iostream>
-
 using namespace std;
 
 class hashMap {
 private:
-    //Vector with open hashing
+    //Vector with open hashing policy
     vector<Odom*> map = {};
     int s, capacity;
 
@@ -17,30 +16,26 @@ private:
 
     //Returns the next empty index in the sequence. Always returns a value
     int collisionpolicy(int val) {
-        int i = 1;
-        while (true) {
-            //Should always an empty index eventually
+        int i = 0;
+        while (i++ < capacity) {
             if(map[hash(val + i)] == nullptr) return hash(val + i);
-            i++;
         }
     }
 
-    //Grows size of hash map and assigns all old values new indexes based on new hash function
+    //Grows size of hash map by 1000% and assigns all old values new indexes based on new hash function
     void expand() {
-        //Increase capacity by 1000%
         capacity *= 10;
-        //Create vector and assign old map to it
+        //Assign  map to temorary vector and clear its contents
         vector<Odom*> oldMap = map;
-        //Clear and resize map
         map.clear();
         map.resize(capacity, nullptr);
         //Iterate through existing vector and rehash all values to new positions
         for (int i = 0; i < oldMap.size(); i++) {
             if (oldMap[i] != nullptr) {
                 int index = hash(oldMap[i]->t_());
-                //Insert object into map if nothing is in that position
-                if (map[index] == nullptr) map[index] = map[i];
-                //Call the collision resolver if there is something in that position
+                //Insert object into map if nothing is in new index
+                if (map[index] == nullptr) map[index] = oldMap[i];
+                //Call the collision resolver if something is in that position
                 else map[collisionpolicy(index)] = oldMap[i];
             }
         }

@@ -35,10 +35,11 @@ public:
     Node* remove(int _id);
     Node* helpRemove(int _id);
 
-    Odom* search(int _id);
+    Odom* search(Node* root, int _id);
 
     double minInorder(double min, string option, int min_time, int max_time);
     double maxInorder(double max, string option, int min_time, int max_time);
+    double sumInorder(double sum, string option, int min_time, int max_time);
 };
 
 
@@ -257,21 +258,22 @@ Node* Node::helpRemove(int _id) {
 
 //Searches for a node by id
 //O(logN)
-Odom* Node::search(int _id) {
-    //Found
-    if (this->id == _id) {
-        return name;
-    }
-    //Not found
-    if (!left && !right) {
-        std::cout << "unsuccessful" << std::endl;
+Odom* Node::search(Node* root, int _id) {
+    if (root == nullptr) {
         return nullptr;
     }
-    //Recursively search for node by ID
-    if (this->id > _id) left->search(_id);
-    if (this->id < _id) right->search(_id);
-
-    return nullptr;
+    else {
+        cout << _id << " " << root->id << endl;
+        if (_id > root->id) {
+            return right->search(root->right, _id);
+        }
+        else if (_id < root->id) {
+            return left->search(root->left, _id);
+        }
+        else {
+            return name;
+        }
+    }
 }
 
 double Node::minInorder(double min, string option, int min_time, int max_time) {
@@ -354,4 +356,45 @@ double Node::maxInorder(double max, string option, int min_time, int max_time) {
     }
 
     return max;
+}
+
+double Node::sumInorder(double sum, string option, int min_time, int max_time) {
+    if (left) {
+        sum = left->sumInorder(sum, option, min_time, max_time);
+    }
+
+    if (option == "1" && name->t_() >= min_time && name->t_() <= max_time) {
+        sum += name->px_();
+    }
+    else if (option == "2" && name->t_() >= min_time && name->t_() <= max_time) {
+        sum += name->py_();
+    }
+    else if (option == "3" && name->t_() >= min_time && name->t_() <= max_time) {
+        sum += name->pz_();
+    }
+    else if (option == "4" && name->t_() >= min_time && name->t_() <= max_time) {
+        sum += name->lvx_();
+    }
+    else if (option == "5" && name->t_() >= min_time && name->t_() <= max_time) {
+        sum += name->lvy_();
+    }
+    else if (option == "6" && name->t_() >= min_time && name->t_() <= max_time) {
+        sum += name->lvz_();
+    }
+    else if (option == "7" && name->t_() >= min_time && name->t_() <= max_time) {
+        sum += name->avx_();
+    }
+    else if (option == "8" && name->t_() >= min_time && name->t_() <= max_time) {
+        sum += name->avy_();
+    }
+    else if (option == "9" && name->t_() >= min_time && name->t_() <= max_time) {
+        sum += name->avz_();
+    }
+
+
+    if (right) {
+        sum = right->sumInorder(sum, option, min_time, max_time);
+    }
+
+    return sum;
 }

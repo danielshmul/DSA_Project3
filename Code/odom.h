@@ -1,26 +1,29 @@
 #pragma once
 
-class Odom 
+class Odom
 {
     double px, py, pz;
-    double lvx, lvy, lvz; 
+    double lvx, lvy, lvz;
     double avx, avy, avz;
+    double t;
 
 public:
-    Odom(double px_, double py_, double pz_, 
-        double lvx_, double lvy_, double lvz_, 
-        double avx_, double avy_, double avz_) :
-    px(px_), py(py_), pz(pz_), lvx(lvx_), lvy(lvy_), lvz(lvz_), avx(avx_), avy(avy_), avz(avz_) {}
-    
-    double px() const {return px;}
-    double py() const {return py;}
-    double pz() const {return pz;}
+    Odom(double px, double py, double pz,
+        double lvx, double lvy, double lvz,
+        double avx, double avy, double avz, double t) :
+        px(px), py(py), pz(pz), lvx(lvx), lvy(lvy), lvz(lvz), avx(avx), avy(avy), avz(avz), t(t) {}
 
-    double lvx() const {return lvx;}
-    double lvy() const {return lvy;}
-    double lvz() const {return lvz;}
+    double px_() const { return px; }
+    double py_() const { return py; }
+    double pz_() const { return pz; }
 
-    double avx() const {return avx;}
-    double avy() const {return avy;}
-    double avz() const {return avz;}
+    double lvx_() const { return lvx; }
+    double lvy_() const { return lvy; }
+    double lvz_() const { return lvz; }
+
+    double avx_() const { return avx; }
+    double avy_() const { return avy; }
+    double avz_() const { return avz; }
+
+    int t_() const { return t; }
 };

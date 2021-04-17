@@ -127,6 +127,33 @@ int main()
 
             findMax(root, &u_map, operation, listOdom.size() * 10);
         }
+        else if (operation == "5") {
+            int time;
+            cout << "Enter time:" << endl;
+            cin >> time;
+            
+            auto avl_start = chrono::system_clock::now();
+            Odom* avl_data = root->search(time);
+            auto avl_stop = chrono::system_clock::now();
+            double avl_duration = chrono::duration_cast<chrono::milliseconds>(avl_stop - avl_start).count();
+
+            cout << "Position X: " << avl_data->px_() << "\tLinear Velocity X: " << avl_data->lvx_() << "\tAngular Velocity X: " << avl_data->avx_() << endl;
+            cout << "Position X: " << avl_data->px_() << "\tLinear Velocity X: " << avl_data->lvx_() << "\tAngular Velocity X: " << avl_data->avx_() << endl;
+            cout << "Position X: " << avl_data->px_() << "\tLinear Velocity X: " << avl_data->lvx_() << "\tAngular Velocity X: " << avl_data->avx_() << endl;
+
+            cout << "AVL Tree search duration: " << avl_duration << " ms" << endl;
+
+            auto hash_start = chrono::system_clock::now();
+            Odom* hash_data = u_map.get(time);
+            auto hash_stop = chrono::system_clock::now();
+            double hash_duration = chrono::duration_cast<chrono::milliseconds>(hash_stop - hash_start).count();
+
+            cout << "Position X: " << hash_data->px_() << "\tLinear Velocity X: " << hash_data->lvx_() << "\tAngular Velocity X: " << hash_data->avx_() << endl;
+            cout << "Position X: " << hash_data->px_() << "\tLinear Velocity X: " << hash_data->lvx_() << "\tAngular Velocity X: " << hash_data->avx_() << endl;
+            cout << "Position X: " << hash_data->px_() << "\tLinear Velocity X: " << hash_data->lvx_() << "\tAngular Velocity X: " << hash_data->avx_() << endl;
+
+            cout << "Hashmap search duration: " << hash_duration << " ms" << endl;            
+        }
         else if (false) {
         
         }

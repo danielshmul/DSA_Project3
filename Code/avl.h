@@ -35,7 +35,7 @@ public:
     Node* remove(int _id);
     Node* helpRemove(int _id);
 
-    void search(int _id);
+    Odom* search(int _id);
 
     double minInorder(double min, string option, int min_time, int max_time);
     double maxInorder(double max, string option, int min_time, int max_time);
@@ -257,11 +257,10 @@ Node* Node::helpRemove(int _id) {
 
 //Searches for a node by id
 //O(logN)
-void Node::search(int _id) {
+Odom* Node::search(int _id) {
     //Found
     if (this->id == _id) {
-        std::cout << name << std::endl;
-        return;
+        return name;
     }
     //Not found
     if (!left && !right) {

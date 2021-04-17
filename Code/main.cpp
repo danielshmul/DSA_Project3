@@ -154,16 +154,16 @@ int main()
             cout << "Enter time:" << endl;
             cin >> time;
             
-            auto avl_start = chrono::system_clock::now();
-            Odom* avl_data = root->search(time);
-            auto avl_stop = chrono::system_clock::now();
-            double avl_duration = chrono::duration_cast<chrono::milliseconds>(avl_stop - avl_start).count();
+            // auto avl_start = chrono::system_clock::now();
+            // Odom* avl_data = root->search(time);
+            // auto avl_stop = chrono::system_clock::now();
+            // double avl_duration = chrono::duration_cast<chrono::milliseconds>(avl_stop - avl_start).count();
 
-            cout << "Position X: " << avl_data->px_() << "\tLinear Velocity X: " << avl_data->lvx_() << "\tAngular Velocity X: " << avl_data->avx_() << endl;
-            cout << "Position X: " << avl_data->px_() << "\tLinear Velocity X: " << avl_data->lvx_() << "\tAngular Velocity X: " << avl_data->avx_() << endl;
-            cout << "Position X: " << avl_data->px_() << "\tLinear Velocity X: " << avl_data->lvx_() << "\tAngular Velocity X: " << avl_data->avx_() << endl;
+            // cout << "Position X: " << avl_data->px_() << "\tLinear Velocity X: " << avl_data->lvx_() << "\tAngular Velocity X: " << avl_data->avx_() << endl;
+            // cout << "Position Y: " << avl_data->py_() << "\tLinear Velocity Y: " << avl_data->lvy_() << "\tAngular Velocity Y: " << avl_data->avy_() << endl;
+            // cout << "Position Z: " << avl_data->pz_() << "\tLinear Velocity Z: " << avl_data->lvz_() << "\tAngular Velocity Z: " << avl_data->avz_() << endl;
 
-            cout << "AVL Tree search duration: " << avl_duration << " ms" << endl;
+            // cout << "AVL Tree search duration: " << avl_duration << " ms" << endl;
 
             auto hash_start = chrono::system_clock::now();
             Odom* hash_data = u_map.get(time);
@@ -171,8 +171,8 @@ int main()
             double hash_duration = chrono::duration_cast<chrono::milliseconds>(hash_stop - hash_start).count();
 
             cout << "Position X: " << hash_data->px_() << "\tLinear Velocity X: " << hash_data->lvx_() << "\tAngular Velocity X: " << hash_data->avx_() << endl;
-            cout << "Position X: " << hash_data->px_() << "\tLinear Velocity X: " << hash_data->lvx_() << "\tAngular Velocity X: " << hash_data->avx_() << endl;
-            cout << "Position X: " << hash_data->px_() << "\tLinear Velocity X: " << hash_data->lvx_() << "\tAngular Velocity X: " << hash_data->avx_() << endl;
+            cout << "Position Y: " << hash_data->py_() << "\tLinear Velocity Y: " << hash_data->lvy_() << "\tAngular Velocity Y: " << hash_data->avy_() << endl;
+            cout << "Position Z: " << hash_data->pz_() << "\tLinear Velocity Z: " << hash_data->lvz_() << "\tAngular Velocity Z: " << hash_data->avz_() << endl;
 
             cout << "Hashmap search duration: " << hash_duration << " ms" << endl;            
         }

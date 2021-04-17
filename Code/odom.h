@@ -5,7 +5,7 @@ class Odom
     double px, py, pz;
     double lvx, lvy, lvz;
     double avx, avy, avz;
-    double t;
+    int t;
 
 public:
 

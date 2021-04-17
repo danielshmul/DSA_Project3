@@ -201,8 +201,10 @@ void findMin(Node* root, hashMap* u_map, string option, int max_time_) {
                 val = u_map->get(i)->avz_();
             }
 
-            if (val < min)
+            if (val < min) {
+                cout << "time " << i << " " << u_map->get(i)->t_()  << " " << val << endl;
                 min = val;
+            }
         }
         cout << "The min value for the hashmap is: " << min << endl;
     }
@@ -264,7 +266,6 @@ void findMax(Node* root, hashMap* u_map, string option, int max_time_) {
             }
 
             if (val > max) {
-                cout << "old max: " << max << " new max: " << val << endl;
                 max = val;
             }
         }

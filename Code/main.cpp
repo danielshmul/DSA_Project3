@@ -224,7 +224,7 @@ void findMin(Node* root, hashMap* u_map, string option, int max_time_) {
     cin >> max_time;
 
     min_time = (min_time / 10) * 10; //allows us to truncate any value not divisible by ten
-    if (max_time != -1)
+    if (max_time != -1 && max_time <= max_time_)
         max_time = (max_time / 10) * 10; //allows us to truncate any value not divisible by ten
     else
         max_time = max_time_;
@@ -294,7 +294,7 @@ void findMax(Node* root, hashMap* u_map, string option, int max_time_) {
     cin >> max_time;
 
     min_time = (min_time / 10) * 10; //allows us to truncate any value not divisible by ten
-    if (max_time != -1)
+    if (max_time != -1 && max_time <= max_time_)
         max_time = (max_time / 10) * 10; //allows us to truncate any value not divisible by ten
     else
         max_time = max_time_;
@@ -365,7 +365,7 @@ void findAverage(Node* root, hashMap* u_map, string option, int max_time_) {
     cin >> max_time;
 
     min_time = (min_time / 10) * 10; //allows us to truncate any value not divisible by ten
-    if (max_time != -1)
+    if (max_time != -1 && max_time <= max_time_)
         max_time = (max_time / 10) * 10; //allows us to truncate any value not divisible by ten
     else
         max_time = max_time_;

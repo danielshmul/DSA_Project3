@@ -263,7 +263,6 @@ Odom* Node::search(Node* root, int _id) {
         return nullptr;
     }
     else {
-        cout << _id << " " << root->id << endl;
         if (_id > root->id) {
             return right->search(root->right, _id);
         }

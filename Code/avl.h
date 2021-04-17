@@ -265,11 +265,13 @@ Odom* Node::search(int _id) {
     //Not found
     if (!left && !right) {
         std::cout << "unsuccessful" << std::endl;
-        return;
+        return nullptr;
     }
     //Recursively search for node by ID
     if (this->id > _id) left->search(_id);
     if (this->id < _id) right->search(_id);
+
+    return nullptr;
 }
 
 double Node::minInorder(double min, string option, int min_time, int max_time) {

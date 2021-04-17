@@ -53,16 +53,43 @@ int main()
             else {
 
                 string lineFromFile;
-                stringstream line;
+                istringstream line;
                 double px, py, pz, lvx, lvy, lvz, avx, avy, avz;
                 double maxlvx = 0;
                 int t = 0; // time variable
+
+                // gets column titles 
+                getline(ifs, lineFromFile);
 
                 //obtain all values from csv and push them to a vector to avoid file reading in timing
                 while (getline(ifs, lineFromFile))
                 {
                     line.str(lineFromFile);
-                    line >> px >> py >> pz >> lvx >> lvy >> lvz >> avx >> avy >> avz;
+                    // line >> px >> py >> pz >> lvx >> lvy >> lvz >> avx >> avy >> avz;
+
+                    cout << lineFromFile << endl;
+
+                    string temp;
+                    getline(line, temp, ',');
+                    px = stod(temp);
+                    getline(line, temp, ',');
+                    py = stod(temp);
+                    getline(line, temp, ',');
+                    pz = stod(temp);
+                    getline(line, temp, ',');
+                    lvx = stod(temp);
+                    getline(line, temp, ',');
+                    lvy = stod(temp);
+                    getline(line, temp, ',');
+                    lvz = stod(temp);
+                    getline(line, temp, ',');
+                    avx = stod(temp);
+                    getline(line, temp, ',');
+                    avy = stod(temp);
+                    // line >> temp;
+                    // getline(line, temp);
+                    // cout << temp << endl;
+                    // avz = stod(temp);
 
                     Odom* point = new Odom(px, py, pz, lvx, lvy, lvz, avx, avy, avz, t);
                     listOdom.push_back(point);

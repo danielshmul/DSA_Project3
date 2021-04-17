@@ -14,6 +14,7 @@ using namespace std;
 Node* callInsert(Node* root, Odom* name, int id);
 void findMin(Node* root, hashMap* u_map, string option, int max_time_);
 void findMax(Node* root, hashMap* u_map, string option, int max_time_);
+void findConstant(Node* root, hashMap* u_map, string option, int max_time);
 
 int main()
 {
@@ -31,7 +32,7 @@ int main()
         cout << "3. Find Max of a value" << endl;
         cout << "4. Find Average of a value" << endl;
         cout << "5. Find Velocity at a specific time" << endl;
-        cout << "6. Find time ranges of dataset where velocity is constant and non-zero" << endl;
+        // cout << "6. Find time ranges of dataset where velocity is constant and non-zero" << endl;
         cout << endl << "Selection: ";
         cin >> operation;
 
@@ -153,6 +154,7 @@ int main()
             int time;
             cout << "Enter time:" << endl;
             cin >> time;
+            cout << endl;
             
             // auto avl_start = chrono::system_clock::now();
             // Odom* avl_data = root->search(time);
@@ -163,22 +165,37 @@ int main()
             // cout << "Position Y: " << avl_data->py_() << "\tLinear Velocity Y: " << avl_data->lvy_() << "\tAngular Velocity Y: " << avl_data->avy_() << endl;
             // cout << "Position Z: " << avl_data->pz_() << "\tLinear Velocity Z: " << avl_data->lvz_() << "\tAngular Velocity Z: " << avl_data->avz_() << endl;
 
-            // cout << "AVL Tree search duration: " << avl_duration << " ms" << endl;
+            // cout << "AVL Tree search duration: " << avl_duration << " ms" << endl << endl;
 
             auto hash_start = chrono::system_clock::now();
             Odom* hash_data = u_map.get(time);
             auto hash_stop = chrono::system_clock::now();
-            double hash_duration = chrono::duration_cast<chrono::milliseconds>(hash_stop - hash_start).count();
+            double hash_duration = chrono::duration_cast<chrono::microseconds>(hash_stop - hash_start).count();
 
             cout << "Position X: " << hash_data->px_() << "\tLinear Velocity X: " << hash_data->lvx_() << "\tAngular Velocity X: " << hash_data->avx_() << endl;
             cout << "Position Y: " << hash_data->py_() << "\tLinear Velocity Y: " << hash_data->lvy_() << "\tAngular Velocity Y: " << hash_data->avy_() << endl;
             cout << "Position Z: " << hash_data->pz_() << "\tLinear Velocity Z: " << hash_data->lvz_() << "\tAngular Velocity Z: " << hash_data->avz_() << endl;
 
-            cout << "Hashmap search duration: " << hash_duration << " ms" << endl;            
+            cout << "Hashmap search duration: " << hash_duration << " ms" << endl << endl;        
         }
-        else if (operation == "6") {
+        // else if (operation == "6") {
+        //     string option;
+            
+        //     cout << endl;
+        //     cout << "Which value would you like to find the maximum for?" << endl;
+        //     cout << "1. Position X" << endl;
+        //     cout << "2. Position Y" << endl;
+        //     cout << "3. Position Z" << endl;
+        //     cout << "4. Linear Velocity X" << endl;
+        //     cout << "5. Linear Velocity Y" << endl;
+        //     cout << "6. Linear Velocity Z" << endl;
+        //     cout << "7. Angular Velocity X" << endl;
+        //     cout << "8. Angular Velocity Y" << endl;
+        //     cout << "9. Angular Velocity Z" << endl;
+        //     cin >> option;
 
-        }
+            
+        // }
         else if (false) {
         
         }
@@ -222,7 +239,7 @@ void findMin(Node* root, hashMap* u_map, string option, int max_time_) {
 
         cout << "The min value for the avl tree is: " << root->minInorder(DBL_MAX, option, min_time, max_time) << endl;
 
-        double min = DBL_MAX;
+        double min = DBL_MAX; 
         double val = 0;
         for (int i = min_time; i < max_time; i += 10) {
             if (option == "1") {
@@ -326,3 +343,77 @@ void findMax(Node* root, hashMap* u_map, string option, int max_time_) {
         cout << "Invalid Selection" << endl << endl;
     }
 }
+
+// void findConstant(Node* root, hashMap* u_map, string option, int max_time) {
+//     if (option == "1" || option == "2" || option == "3" || option == "4" || 
+//         option == "5" || option == "6" || option == "7" || option == "8" || option == "9") {
+
+//         // cout << "The min value for the avl tree is: " << root->minInorder(DBL_MAX, option, max_time) << endl;
+        
+//         int count = 0;
+//         double temp = 0;
+//         double val = 0;
+//         int start = 0;
+//         int end = 0;
+//         for (int i = 1; i < max_time; i += 10) {
+//             int t = u_map->get(i)->t_(); // time of element
+
+//             if (option == "1") {
+//                 val = u_map->get(i)->px_();
+//                 temp = u_map->get(i-1)->px_();
+//             }
+//             else if (option == "2") {
+//                 val = u_map->get(i)->py_();
+//                 temp = u_map->get(i-1)->py_();
+//             }
+//             else if (option == "3") {
+//                 val = u_map->get(i)->pz_();
+//                 temp = u_map->get(i-1)->pz_();
+//             }
+//             else if (option == "4") {
+//                 val = u_map->get(i)->lvx_();
+//                 temp = u_map->get(i-1)->lvx_();
+//             }
+//             else if (option == "5") {
+//                 val = u_map->get(i)->lvy_();
+//                 temp = u_map->get(i-1)->lvy_();
+//             }
+//             else if (option == "6") {
+//                 val = u_map->get(i)->lvz_();
+//                 temp = u_map->get(i-1)->lvz_();
+//             }
+//             else if (option == "7") {
+//                 val = u_map->get(i)->avx_();
+//                 temp = u_map->get(i-1)->avx_();
+//             }
+//             else if (option == "8") {
+//                 val = u_map->get(i)->avy_();
+//                 temp = u_map->get(i-1)->avy_();
+//             }
+//             else if (option == "9") {
+//                 val = u_map->get(i)->avz_();
+//                 temp = u_map->get(i-1)->avz_();
+//             }
+
+//             if (val < temp*0.9 || val > temp*1.1)
+//             {
+//                 count++;
+//                 if(val == 0)
+//                 {
+//                     count = 0;
+//                     start = t;
+//                 }
+//                 else if(count > 250) 
+//                 {
+//                     count = 0;
+//                     end = t;
+//                     cout << "Constant of ~ " << val << "from t: " << start << " to " << end << endl;
+//                     start = t;
+//                 }
+//             }
+//         }
+//     }
+//     else {
+//         cout << "Invalid Selection" << endl << endl;
+//     }   
+// }

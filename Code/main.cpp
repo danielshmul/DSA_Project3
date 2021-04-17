@@ -41,22 +41,7 @@ int main()
         }
         else if (operation == "1") //load data into data structures
         {
-<<<<<<< HEAD
-            string lineFromFile;
-            stringstream line;
-            double px, py, pz, lvx, lvy, lvz, avx, avy, avz;
-            int t = 0; // time variable
-            auto o_map_start = chrono::system_clock::now();
-            while(getline(ifs, lineFromFile))
-            {
-                line.str(lineFromFile);
-                line >> px >> py >> pz >> lvx >> lvy >> lvz >> avx >> avy >> avz;
 
-                o_map[t++*10] = new Odom(px, py, pz, lvx, lvy, lvz, avx, avy, avz);
-            }
-            auto o_map_stop = chrono::system_clock::now();
-            double o_map_duration = chrono::duration_cast<chrono::milliseconds>(o_map_stop - o_map_start).count();
-=======
             ifstream ifs;
             string file;
             cout << "What file would you like to load?" << endl;
@@ -78,20 +63,13 @@ int main()
                 {
                     line.str(lineFromFile);
                     line >> px >> py >> pz >> lvx >> lvy >> lvz >> avx >> avy >> avz;
->>>>>>> alexs_branch
 
                     Odom* point = new Odom(px, py, pz, lvx, lvy, lvz, avx, avy, avz, t);
                     listOdom.push_back(point);
                     t += 10;
-
-<<<<<<< HEAD
-            ifs.close();
-            ifs.open("../odom.csv"); //restart position in file
-=======
                 }
                 cout << "The number of elements in this dataset: " << listOdom.size() << endl;
                 ifs.close();
->>>>>>> alexs_branch
 
                 //----------------------insert elements into avl tree----------------------//
                 auto o_map_start = chrono::system_clock::now();
@@ -112,10 +90,6 @@ int main()
                 double u_map_duration = chrono::duration_cast<chrono::milliseconds>(u_map_stop - u_map_start).count();
                 cout << "hashmap load duration: " << u_map_duration << " ms" << endl << endl;
             }
-<<<<<<< HEAD
-            auto u_map_stop = chrono::system_clock::now();
-            double u_map_duration = chrono::duration_cast<chrono::milliseconds>(u_map_stop - u_map_start).count();
-=======
         }
         else if (operation == "2") { //find the min 
             int min_time = 0;
@@ -132,7 +106,6 @@ int main()
             cout << "8. Angular Velocity Y" << endl;
             cout << "9. Angular Velocity Z" << endl;
             cin >> operation;
->>>>>>> alexs_branch
 
             findMin(root, &u_map, operation, listOdom.size() * 10);
         }

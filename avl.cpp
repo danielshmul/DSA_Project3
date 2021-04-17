@@ -504,6 +504,7 @@ int main(){
 	string temp_sub;
 	int delimiter;
 
+
 	cin >> number_of_commands;
 	getline(cin, temp_sub);
 	for (int i = 0; i < number_of_commands; i++) {

@@ -11,7 +11,7 @@ public:
 
     Odom(double px, double py, double pz,
         double lvx, double lvy, double lvz,
-        double avx, double avy, double avz, double t) :
+        double avx, double avy, double avz, int t) :
         px(px), py(py), pz(pz), lvx(lvx), lvy(lvy), lvz(lvz), avx(avx), avy(avy), avz(avz), t(t) {}
 
     double px_() const { return px; }

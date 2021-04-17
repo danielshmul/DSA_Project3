@@ -55,7 +55,6 @@ int main()
                 string lineFromFile;
                 stringstream line;
                 double px, py, pz, lvx, lvy, lvz, avx, avy, avz;
-                double maxlvx = 0;
                 int t = 0; // time variable
 
                 //obtain all values from csv and push them to a vector to avoid file reading in timing
@@ -202,7 +201,6 @@ void findMin(Node* root, hashMap* u_map, string option, int max_time_) {
             }
 
             if (val < min) {
-                cout << "time " << i << " " << u_map->get(i)->t_()  << " " << val << endl;
                 min = val;
             }
         }

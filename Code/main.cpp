@@ -65,9 +65,6 @@ int main()
                 while (getline(ifs, lineFromFile))
                 {
                     line.str(lineFromFile);
-                    // line >> px >> py >> pz >> lvx >> lvy >> lvz >> avx >> avy >> avz;
-
-                    cout << lineFromFile << endl;
 
                     string temp;
                     getline(line, temp, ',');
@@ -86,10 +83,8 @@ int main()
                     avx = stod(temp);
                     getline(line, temp, ',');
                     avy = stod(temp);
-                    // line >> temp;
-                    // getline(line, temp);
-                    // cout << temp << endl;
-                    // avz = stod(temp);
+                    getline(line, temp, ',');
+                    avz = stod(temp);
 
                     Odom* point = new Odom(px, py, pz, lvx, lvy, lvz, avx, avy, avz, t);
                     listOdom.push_back(point);
@@ -180,6 +175,9 @@ int main()
             cout << "Position X: " << hash_data->px_() << "\tLinear Velocity X: " << hash_data->lvx_() << "\tAngular Velocity X: " << hash_data->avx_() << endl;
 
             cout << "Hashmap search duration: " << hash_duration << " ms" << endl;            
+        }
+        else if (operation == "6") {
+
         }
         else if (false) {
         

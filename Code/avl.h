@@ -8,17 +8,20 @@
 #include <utility>
 #include <vector>
 #include "odom.h"
+using namespace std;
 
 //Encapsulating class, responsible for all node methods
 class Node {
-    int id = -1, height = 0;
-    Odom* name = nullptr;
-    Node* left = nullptr;
-    Node* right = nullptr;
 
 public:
     Node();
     Node(Odom* name_, int id);
+    Node* left = nullptr;
+    Node* right = nullptr;
+
+    static int count;
+    Odom* name = nullptr;
+    int id = -1, height = 0;
 
     static int findMax(Node* left, Node* right);
     int balanceFactor();
@@ -33,11 +36,14 @@ public:
     Node* helpRemove(int _id);
 
     void search(int _id);
+
+    double minInorder(double min, string option, int min_time, int max_time);
+    double maxInorder(double max, string option, int min_time, int max_time);
 };
 
 
 //************* METHOD DEFINITIONS **************//
-
+int Node::count = 0;
 //Constructors
 Node::Node() {
     id = -1;
@@ -51,6 +57,7 @@ Node::Node(Odom* name_, int id) {
     height = 1;
     left = nullptr;
     right = nullptr;
+    count++;
 }
 
 //Find the maximum height of the node, ensuring that the left and right nodes return nonnull numbers.
@@ -150,19 +157,25 @@ Node* Node::rotateRight() {
 
 //Places a node into the tree, given it already has a nonnull root
 //O(logN)
-Node* Node::insert(Odom* n_, int _id) {
+Node* Node::insert(Odom* n_, int _id) {    
     //Check left
     //O(logN)
     if (this->id > _id) {
         if (!left) { //Left node is null
             left = new Node(n_, _id);
-        } else this->left = left->insert(n_, _id);
+        }
+        else {
+            this->left = left->insert(n_, _id); 
+        }
     }
     //Check right
     else if (this->id < _id) {
         if (!right) {
             right = new Node(n_, _id);
-        } else this->right = right->insert(n_, _id);
+        }
+        else { 
+            this->right = right->insert(n_, _id);
+        }
     }
     else {
         //Key has an identical, not inserted
@@ -258,4 +271,86 @@ void Node::search(int _id) {
     //Recursively search for node by ID
     if (this->id > _id) left->search(_id);
     if (this->id < _id) right->search(_id);
+}
+
+double Node::minInorder(double min, string option, int min_time, int max_time) {
+    if (left) {
+        min = left->minInorder(min, option, min_time, max_time);
+    }
+    
+    if (option == "1" && name->px_() < min && name->t_() >= min_time && name->t_() <= max_time) {
+        min = name->px_();
+    } 
+    else if (option == "2" && name->py_() < min && name->t_() >= min_time && name->t_() <= max_time) {
+        min = name->py_();
+    }
+    else if (option == "3" && name->pz_() < min && name->t_() >= min_time && name->t_() <= max_time) {
+        min = name->pz_();
+    }       
+    else if (option == "4" && name->lvx_() < min && name->t_() >= min_time && name->t_() <= max_time) {
+        min = name->lvx_();
+    }       
+    else if (option == "5" && name->lvy_() < min && name->t_() >= min_time && name->t_() <= max_time) {
+        min = name->lvy_();
+    }       
+    else if (option == "6" && name->lvz_() < min && name->t_() >= min_time && name->t_() <= max_time) {
+        min = name->lvz_();
+    }       
+    else if (option == "7" && name->avx_() < min && name->t_() >= min_time && name->t_() <= max_time) {
+        min = name->avx_();
+    }       
+    else if (option == "8" && name->avy_() < min && name->t_() >= min_time && name->t_() <= max_time) {
+        min = name->avy_();
+    }
+    else if (option == "9" && name->avz_() < min && name->t_() >= min_time && name->t_() <= max_time) {
+        min = name->avz_();
+    }
+
+
+    if (right) {
+        min = right->minInorder(min, option, min_time, max_time);
+    }
+
+    return min;
+}
+
+double Node::maxInorder(double max, string option, int min_time, int max_time) {
+    if (left) {
+        max = left->maxInorder(max, option, min_time, max_time);
+    }
+
+    if (option == "1" && name->px_() > max && name->t_() >= min_time && name->t_() <= max_time) {
+        max = name->px_();
+    }
+    else if (option == "2" && name->py_() > max && name->t_() >= min_time && name->t_() <= max_time) {
+        max = name->py_();
+    }
+    else if (option == "3" && name->pz_() > max && name->t_() >= min_time && name->t_() <= max_time) {
+        max = name->pz_();
+    }
+    else if (option == "4" && name->lvx_() > max && name->t_() >= min_time && name->t_() <= max_time) {
+        max = name->lvx_();
+    }
+    else if (option == "5" && name->lvy_() > max && name->t_() >= min_time && name->t_() <= max_time) {
+        max = name->lvy_();
+    }
+    else if (option == "6" && name->lvz_() > max && name->t_() >= min_time && name->t_() <= max_time) {
+        max = name->lvz_();
+    }
+    else if (option == "7" && name->avx_() > max && name->t_() >= min_time && name->t_() <= max_time) {
+        max = name->avx_();
+    }
+    else if (option == "8" && name->avy_() > max && name->t_() >= min_time && name->t_() <= max_time) {
+        max = name->avy_();
+    }
+    else if (option == "9" && name->avz_() > max && name->t_() >= min_time && name->t_() <= max_time) {
+        max = name->avz_();
+    }
+
+
+    if (right) {
+        max = right->maxInorder(max, option, min_time, max_time);
+    }
+
+    return max;
 }

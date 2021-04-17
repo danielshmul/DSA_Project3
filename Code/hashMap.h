@@ -10,21 +10,17 @@ class hashMap {
 private:
     //Vector with open hashing
     vector<Odom*> map = {};
-    int s;
-    int capacity;
+    int s, capacity;
 
     //Dynamic hash function, changes whenever the capacity does.
-    int hash(int val) {
-        return (val == 0)? 0 : val % capacity;
-    }
+    int hash(int val) { return (val == 0)? 0 : val % capacity; }
 
     //Returns the next empty index in the sequence. Always returns a value
     int collisionpolicy(int val) {
         int i = 1;
         while (true) {
-            if(map[hash(val + i)] == nullptr)
-                //FIXME: Should always an empty index eventually
-                return hash(val + i);
+            //Should always an empty index eventually
+            if(map[hash(val + i)] == nullptr) return hash(val + i);
             i++;
         }
     }
@@ -42,12 +38,10 @@ private:
         for (int i = 0; i < oldMap.size(); i++) {
             if (oldMap[i] != nullptr) {
                 int index = hash(oldMap[i]->t_());
-                if (map[index] == nullptr)
-                    //Insert object into map if nothing is in that position
-                    map[index] = map[i];
-                else
-                    //Call the collision resolver if there is something in that position
-                    map[collisionpolicy(index)] = oldMap[i];
+                //Insert object into map if nothing is in that position
+                if (map[index] == nullptr) map[index] = map[i];
+                //Call the collision resolver if there is something in that position
+                else map[collisionpolicy(index)] = oldMap[i];
             }
         }
     }
@@ -55,7 +49,7 @@ private:
 public:
     hashMap() {
         s = 0;
-        int capacity = 100;
+        capacity = 100;
         map.resize(capacity, nullptr);
     }
 
@@ -64,7 +58,7 @@ public:
         if(hash(val) < map.size() && map[hash(val)] != nullptr) {
             //If the value is at the hashed index, return true
             if (map[hash(val)]->t_() == val) return true;
-            //If its not run it through the permutation vector
+            //If its not run it through the collision sequence
             int i = 1;
             while (map[hash(val + i)] != nullptr) {
                 if (map[hash(val + i)]->t_() == val) return true;
@@ -75,13 +69,10 @@ public:
      }
 
     void insert(Odom* data) {
-        cout << "here";
         if (!has(data->t_())) {
             if ((float)s / capacity  > 0.5)  expand();
-            if (map[hash(data->t_())] == nullptr)
-                map[hash(data->t_())] = data;
-            else 
-                map[collisionpolicy(data->t_())] = data;
+            if (map[hash(data->t_())] == nullptr) map[hash(data->t_())] = data;
+            else map[collisionpolicy(data->t_())] = data;
             s++;
         }
     }
@@ -100,7 +91,5 @@ public:
         return nullptr;
     }
 
-    int size() {
-        return s;
-    }
+    int size() {return s;}
 };

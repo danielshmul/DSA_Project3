@@ -32,7 +32,7 @@ int main()
         cout << "2. Find Min of a value" << endl;
         cout << "3. Find Max of a value" << endl;
         cout << "4. Find Average of a value" << endl;
-        cout << "5. Find Velocity at a specific time" << endl;
+        cout << "5. Find Data at a specific time" << endl;
         cout << endl << "Selection: ";
         cin >> operation;
 

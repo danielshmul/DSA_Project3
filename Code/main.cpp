@@ -26,7 +26,7 @@ int main()
 
     while (true)
     {
-        cout << "What would you wish to do? Please select a number." << endl;
+        cout << "\nWhat would you wish to do? Please select a number." << endl;
         cout << "0. Stop Program" << endl;
         cout << "1. Load Data" << endl;
         cout << "2. Find Min of a value" << endl;
@@ -45,12 +45,12 @@ int main()
 
             ifstream ifs;
             string file;
-            cout << "What file would you like to load?" << endl;
+            cout << "\nWhat file would you like to load?" << endl;
             cin >> file;
             cout << endl;
             ifs.open(file);
             if (!ifs) {
-                cout << "Invalid file" << endl << endl;
+                cout << "\nInvalid file" << endl << endl;
             }
             else {
 
@@ -92,7 +92,7 @@ int main()
                     listOdom.push_back(point);
                     t += 10;
                 }
-                cout << "The number of elements in this dataset: " << listOdom.size() << endl;
+                cout << "\nThe number of elements in this dataset: " << listOdom.size() << endl;
                 ifs.close();
 
                 //----------------------insert elements into avl tree----------------------//
@@ -102,7 +102,7 @@ int main()
                 }
                 auto o_map_stop = chrono::system_clock::now();
                 double o_map_duration = chrono::duration_cast<chrono::milliseconds>(o_map_stop - o_map_start).count();
-                cout << "avl tree load duration: " << o_map_duration << " ms" << endl;
+                cout << "\nAVL Tree load duration: " << o_map_duration << " ms" << endl;
 
                 //----------------------insert elements into unordered map (hashMap)-----------------------//
                 auto u_map_start = chrono::system_clock::now();
@@ -111,7 +111,7 @@ int main()
                 }
                 auto u_map_stop = chrono::system_clock::now();
                 double u_map_duration = chrono::duration_cast<chrono::milliseconds>(u_map_stop - u_map_start).count();
-                cout << "hashmap load duration: " << u_map_duration << " ms" << endl << endl;
+                cout << "\nHashmap load duration: " << u_map_duration << " ms" << endl << endl;
             }
         }
         else if (operation == "2" && listOdom.size() != 0) { //find the min 
@@ -170,7 +170,7 @@ int main()
         }
         else if (operation == "5" && listOdom.size() != 0) { //find values at time t
             int time;
-            cout << "Enter time:" << endl;
+            cout << "\nEnter time:" << endl;
             cin >> time;
             
             auto avl_start = std::chrono::high_resolution_clock::now();
@@ -178,22 +178,22 @@ int main()
             auto avl_stop = std::chrono::high_resolution_clock::now();
             double avl_duration = std::chrono::duration_cast<chrono::milliseconds>(avl_stop - avl_start).count();
 
-            cout << "Position X (m): " << avl_data->px_() << "\tLinear Velocity X (m/s): " << avl_data->lvx_() << "\tAngular Velocity X (rad/s): " << avl_data->avx_() << endl;
+            cout << "\nPosition X (m): " << avl_data->px_() << "\tLinear Velocity X (m/s): " << avl_data->lvx_() << "\tAngular Velocity X (rad/s): " << avl_data->avx_() << endl;
             cout << "Position Y (m): " << avl_data->py_() << "\tLinear Velocity Y (m/s): " << avl_data->lvy_() << "\tAngular Velocity Y (rad/s): " << avl_data->avy_() << endl;
             cout << "Position Z (m): " << avl_data->pz_() << "\tLinear Velocity Z (m/s): " << avl_data->lvz_() << "\tAngular Velocity Z (rad/s): " << avl_data->avz_() << endl;
 
-            cout << "AVL Tree search duration: " << avl_duration << " ms" << endl;
+            cout << "\nAVL Tree search duration: " << avl_duration << " ms" << endl;
 
             auto hash_start = chrono::high_resolution_clock::now();
             Odom* hash_data = u_map.get(time);
             auto hash_stop = chrono::high_resolution_clock::now();
             double hash_duration = chrono::duration_cast<chrono::milliseconds>(hash_stop - hash_start).count();
 
-            cout << "Position X (m): " << hash_data->px_() << "\tLinear Velocity X (m/s): " << hash_data->lvx_() << "\tAngular Velocity X (rad/s): " << hash_data->avx_() << endl;
+            cout << "\nPosition X (m): " << hash_data->px_() << "\tLinear Velocity X (m/s): " << hash_data->lvx_() << "\tAngular Velocity X (rad/s): " << hash_data->avx_() << endl;
             cout << "Position Y (m): " << hash_data->py_() << "\tLinear Velocity Y (m/s): " << hash_data->lvy_() << "\tAngular Velocity Y (rad/s): " << hash_data->avy_() << endl;
             cout << "Position Z (m): " << hash_data->pz_() << "\tLinear Velocity Z (m/s): " << hash_data->lvz_() << "\tAngular Velocity Z (rad/s): " << hash_data->avz_() << endl;
 
-            cout << "Hashmap search duration: " << hash_duration << " ms" << endl << endl;
+            cout << "\nHashmap search duration: " << hash_duration << " ms" << endl << endl;
         }
         else {
             cout << "Invalid Option. Please Try Again." << endl << endl;
@@ -206,7 +206,6 @@ int main()
 Node* callInsert(Node* root, Odom* name, int id) {
 
     if (!root) { //If the root is null, create the node outside of the insert function
-        //std::cout << "successful" << std::endl;
         return new Node(name, id);
     }
     //Finally, call the function
@@ -234,10 +233,10 @@ void findMin(Node* root, hashMap* u_map, string option, int max_time_) {
         option == "5" || option == "6" || option == "7" || option == "8" || option == "9") {
 
         auto min_start = chrono::system_clock::now();
-        cout << "The min value for the avl tree is: " << root->minInorder(DBL_MAX, option, min_time, max_time) << endl;
+        cout << "\nThe min value for the avl tree is: " << root->minInorder(DBL_MAX, option, min_time, max_time) << endl;
         auto min_stop = chrono::system_clock::now();
         double min_duration = chrono::duration_cast<chrono::milliseconds>(min_stop - min_start).count();
-        cout << "AVL Tree finding minimum duration: " << min_duration << " ms" << endl;
+        cout << "\nAVL Tree finding minimum duration: " << min_duration << " ms" << endl;
 
         auto min_start2 = chrono::system_clock::now();
         double min = DBL_MAX;
@@ -274,10 +273,10 @@ void findMin(Node* root, hashMap* u_map, string option, int max_time_) {
             if (val < min)
                 min = val;
         }
-        cout << "The min value for the hashmap is: " << min << endl;
+        cout << "\nThe min value for the hashmap is: " << min << endl;
         auto min_stop2 = chrono::system_clock::now();
         double min_duration2 = chrono::duration_cast<chrono::milliseconds>(min_stop2 - min_start2).count();
-        cout << "Hashmap finding minimum duration: " << min_duration2 << " ms" << endl << endl;
+        cout << "\nHashmap finding minimum duration: " << min_duration2 << " ms" << endl << endl;
     }
     else {
         cout << "Invalid Selection" << endl << endl;
@@ -304,10 +303,10 @@ void findMax(Node* root, hashMap* u_map, string option, int max_time_) {
         option == "5" || option == "6" || option == "7" || option == "8" || option == "9") {
 
         auto max_start = chrono::system_clock::now();
-        cout << "The max value for the avl tree is: " << root->maxInorder(0, option, min_time, max_time) << endl;
+        cout << "\nThe max value for the avl tree is: " << root->maxInorder(0, option, min_time, max_time) << endl;
         auto max_stop = chrono::system_clock::now();
         double max_duration = chrono::duration_cast<chrono::milliseconds>(max_stop - max_start).count();
-        cout << "AVL Tree finding maximum duration: " << max_duration << " ms" << endl;
+        cout << "\nAVL Tree finding maximum duration: " << max_duration << " ms" << endl;
 
         auto max_start2 = chrono::system_clock::now();
         double max = 0;
@@ -345,10 +344,10 @@ void findMax(Node* root, hashMap* u_map, string option, int max_time_) {
                 max = val;
             }
         }
-        cout << "The max value for the hashmap is: " << max << endl;
+        cout << "\nThe max value for the hashmap is: " << max << endl;
         auto max_stop2 = chrono::system_clock::now();
         double max_duration2 = chrono::duration_cast<chrono::milliseconds>(max_stop2 - max_start2).count();
-        cout << "Hashmap finding max duration: " << max_duration2 << " ms" << endl << endl;
+        cout << "\nHashmap finding max duration: " << max_duration2 << " ms" << endl << endl;
     }
     else {
         cout << "Invalid Selection" << endl << endl;
@@ -375,10 +374,10 @@ void findAverage(Node* root, hashMap* u_map, string option, int max_time_) {
         option == "5" || option == "6" || option == "7" || option == "8" || option == "9") {
 
         auto average_start = chrono::system_clock::now();
-        cout << "The max value for the avl tree is: " << root->sumInorder(0, option, min_time, max_time) / (1 + (max_time - min_time) / 10) << endl;
+        cout << "\nThe average value for the avl tree is: " << root->sumInorder(0, option, min_time, max_time) / (1 + (max_time - min_time) / 10) << endl;
         auto average_stop = chrono::system_clock::now();
         double average_duration = chrono::duration_cast<chrono::milliseconds>(average_stop - average_start).count();
-        cout << "AVL Tree finding average duration: " << average_duration << " ms" << endl;
+        cout << "\nAVL Tree finding average duration: " << average_duration << " ms" << endl;
 
         auto average_start2 = chrono::system_clock::now();
         double sum = 0;
@@ -413,9 +412,9 @@ void findAverage(Node* root, hashMap* u_map, string option, int max_time_) {
             }
         }
         auto average_stop2 = chrono::system_clock::now();
-        cout << "The average value for the hashmap is: " << sum / (1 + (max_time - min_time)/10) << endl;
+        cout << "\nThe average value for the hashmap is: " << sum / (1 + (max_time - min_time)/10) << endl;
         double average_duration2 = chrono::duration_cast<chrono::milliseconds>(average_stop2 - average_start2).count();
-        cout << "Hashmap finding average duration: " << average_duration2 << " ms" << endl << endl;
+        cout << "\nHashmap finding average duration: " << average_duration2 << " ms" << endl << endl;
     }
     else {
         cout << "Invalid Selection" << endl << endl;
